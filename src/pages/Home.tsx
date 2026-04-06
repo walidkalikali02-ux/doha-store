@@ -48,8 +48,8 @@ export const Home = () => {
 
   return (
     <div className="flex flex-col">
-      <section className="relative min-h-screen bg-[#FAFAF8] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+      <section className="relative min-h-[80vh] bg-[#FAFAF8] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 order-2 lg:order-1">
@@ -87,7 +87,7 @@ export const Home = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="relative h-[400px] lg:h-[520px]"
+                className="relative h-[400px] lg:h-[480px]"
               >
                 <motion.div
                   animate={{ y: [0, -20, 0] }}
@@ -116,31 +116,10 @@ export const Home = () => {
               </motion.div>
             </div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16"
-          >
-            {[
-              { value: '+50', label: 'محصول' },
-              { value: '+10', label: 'سنوات' },
-              { value: '+15K', label: 'عميل' },
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className="bg-white/60 backdrop-blur-lg border border-white/80 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <p className="text-4xl font-black text-[#111] mb-2">{stat.value}</p>
-                <p className="text-sm text-[#333] font-medium">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
-      <section className="bg-[#FAFAF8] py-16">
+      <section className="bg-[#FAFAF8] py-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,8 +127,8 @@ export const Home = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex justify-center"
           >
-            <div className="flex items-center bg-[#F5F5F3] rounded-full px-5 py-3 gap-4 w-full max-w-2xl shadow-md border border-gray-100">
-              <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-lg">
+            <div className="flex items-center bg-white rounded-full px-6 py-4 gap-4 w-full max-w-2xl shadow-lg border border-gray-100">
+              <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-md">
                 <Search size={22} strokeWidth={2.5} />
               </button>
               <input
