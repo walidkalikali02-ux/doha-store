@@ -26,21 +26,21 @@ export const Navbar = () => {
   ];
 
   const infoLinks = [
-    { name: 'المدونة', path: '/blog' },
+    { name: 'المدوّنة', path: '/blog' },
     { name: 'فروعنا', path: '/branches' },
-    { name: 'عن المحمصة', path: '/about' },
+    { name: 'عنَّا', path: '/about' },
   ];
 
   return (
     <>
       <div className="bg-brand-black text-white py-2.5 text-center relative z-[60]">
-        <div className="flex items-center justify-center gap-8">
-          <p className="text-[9px] font-bold tracking-[0.3em] whitespace-nowrap">
-            توصيل مجاني للطلبات فوق ٢٥٠ ريال قطري
+        <div className="flex items-center justify-center gap-6 md:gap-8">
+          <p className="text-[9px] font-semibold tracking-[0.2em] whitespace-nowrap">
+            توصيل مجاني للطلبات فوق ٢٥٠ ر.ق
           </p>
           <span className="w-1 h-1 bg-brand-gold rounded-full hidden md:block" />
-          <p className="text-[9px] font-bold tracking-[0.3em] whitespace-nowrap hidden md:block">
-            تحميص طازج يومياً في قلب الدوحة
+          <p className="text-[9px] font-semibold tracking-[0.2em] whitespace-nowrap hidden md:block">
+            تحميص طازج يومياً • الدوحة
           </p>
         </div>
       </div>
@@ -63,13 +63,13 @@ export const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-[10px] font-bold tracking-[0.2em] transition-colors duration-300 hover:text-brand-gold relative group ${
+                  className={`text-[11px] font-medium tracking-wide transition-colors duration-300 hover:text-brand-gold relative group ${
                     location.pathname === link.path ? 'text-brand-gold' : 'text-brand-black'
                   }`}
                 >
                   {link.name}
                   <span
-                    className={`absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
+                    className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
                       location.pathname === link.path ? 'w-full' : ''
                     }`}
                   />
@@ -105,13 +105,13 @@ export const Navbar = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`text-[10px] font-bold tracking-[0.2em] transition-colors duration-300 hover:text-brand-gold relative group ${
+                    className={`text-[11px] font-medium tracking-wide transition-colors duration-300 hover:text-brand-gold relative group ${
                       location.pathname === link.path ? 'text-brand-gold' : 'text-brand-black'
                     }`}
                   >
                     {link.name}
                     <span
-                      className={`absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
+                      className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
                         location.pathname === link.path ? 'w-full' : ''
                       }`}
                     />
@@ -201,8 +201,8 @@ export const Navbar = () => {
 
                 <div className="flex flex-col gap-12 overflow-y-auto pb-12">
                   <div className="space-y-6">
-                    <p className="text-[10px] font-bold text-brand-gold uppercase tracking-[0.4em] opacity-60">القائمة</p>
-                    <div className="flex flex-col gap-6">
+                    <p className="text-[10px] font-semibold text-brand-gold uppercase tracking-[0.4em] opacity-60">القائمة</p>
+                    <div className="flex flex-col gap-5">
                       {[...shopLinks, ...infoLinks].map((link, index) => (
                         <motion.div
                           key={link.path}
@@ -213,7 +213,7 @@ export const Navbar = () => {
                           <Link
                             to={link.path}
                             onClick={() => setIsMenuOpen(false)}
-                            className={`block text-4xl font-black uppercase tracking-tighter transition-colors duration-300 ${
+                            className={`block text-3xl font-bold tracking-tight transition-colors duration-300 ${
                               location.pathname === link.path ? 'text-brand-gold translate-x-4' : 'text-white hover:text-brand-gold'
                             }`}
                           >
@@ -231,21 +231,21 @@ export const Navbar = () => {
                       <User size={24} className="text-brand-gold" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-semibold text-brand-gray-500 uppercase tracking-[0.25em]">حسابي</p>
+                      <p className="text-[10px] font-medium text-white/50 tracking-[0.15em]">حسابي</p>
                       <p className="text-base font-bold text-white leading-snug">تسجيل الدخول</p>
                     </div>
                   </div>
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
-                      <p className="text-base font-bold text-white tracking-wide">+٩٧٤ ٤٤٥٥ ٦٦٧٧</p>
-                      <p className="text-xs text-brand-gray-500 font-normal leading-relaxed">hello@doharoastery.qa</p>
+                      <p className="text-base font-bold text-white tracking-wide" dir="ltr">+974 44 55 66 77</p>
+                      <p className="text-xs text-white/40 font-normal leading-relaxed">hello@doharoastery.qa</p>
                     </div>
                     <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors cursor-pointer">
-                        <span className="text-[10px] font-black">IG</span>
+                        <span className="text-[10px] font-bold">IG</span>
                       </div>
                       <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors cursor-pointer">
-                        <span className="text-[10px] font-black">TW</span>
+                        <span className="text-[10px] font-bold">TW</span>
                       </div>
                     </div>
                   </div>
