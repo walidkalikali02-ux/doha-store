@@ -109,6 +109,28 @@ export const Home = () => {
         </div>
       </section>
 
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="section-subtitle">المحاصيل المختارة</span>
+            <h2 className="section-title">الأكثر مبيعاً هذا الأسبوع</h2>
+            <div className="w-16 h-0.5 bg-brand-gold mx-auto mt-6"></div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+            {featuredProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link to="/products" className="btn-outline border-brand-gray-200 hover:border-brand-black">
+              عرض جميع المنتجات
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Categories Grid */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,29 +170,6 @@ export const Home = () => {
                   <span className="text-xs font-black border-b-2 border-brand-gold pb-1 translate-y-full group-hover:translate-y-0 transition-transform duration-700 block">تسوق الآن</span>
                 </div>
               </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-32 bg-brand-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <span className="section-subtitle">المحاصيل المختارة</span>
-            <h2 className="section-title">الأكثر مبيعاً هذا الأسبوع</h2>
-            <div className="w-16 h-0.5 bg-brand-gold mx-auto mt-6"></div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-20">
-            {featuredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          <div className="mt-24 text-center">
-            <Link to="/products" className="btn-outline border-brand-gray-200 hover:border-brand-black">
-              عرض جميع المنتجات
             </Link>
           </div>
         </div>
