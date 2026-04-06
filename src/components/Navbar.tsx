@@ -33,52 +33,50 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      <div className="bg-brand-black text-white py-2.5 text-center overflow-hidden relative z-[60]">
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-center gap-8"
-        >
-          <p className="text-[9px] font-black uppercase tracking-[0.4em] whitespace-nowrap">
+      <div className="bg-brand-black text-white py-2.5 text-center relative z-[60]">
+        <div className="flex items-center justify-center gap-8">
+          <p className="text-[9px] font-bold tracking-[0.3em] whitespace-nowrap">
             توصيل مجاني للطلبات فوق ٢٥٠ ريال قطري
           </p>
-          <span className="w-1 h-1 bg-brand-gold rounded-full hidden md:block"></span>
-          <p className="text-[9px] font-black uppercase tracking-[0.4em] whitespace-nowrap hidden md:block">
+          <span className="w-1 h-1 bg-brand-gold rounded-full hidden md:block" />
+          <p className="text-[9px] font-bold tracking-[0.3em] whitespace-nowrap hidden md:block">
             تحميص طازج يومياً في قلب الدوحة
           </p>
-        </motion.div>
+        </div>
       </div>
 
-      <nav className={`fixed left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
-        isScrolled 
-          ? 'top-6 px-4 md:px-8' 
-          : 'top-10 px-0'
-      }`}>
-        <div className={`max-w-7xl mx-auto transition-all duration-700 ease-in-out ${
-          isScrolled 
-            ? 'bg-white/80 backdrop-blur-xl shadow-premium border border-brand-gray-100 rounded-full px-8 py-2' 
-            : 'bg-white py-6 px-4 sm:px-6 lg:px-8 border-b border-brand-gray-100'
-        }`}>
+      <nav
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'top-6 px-4 md:px-8' : 'top-10 px-0'
+        }`}
+      >
+        <div
+          className={`max-w-7xl mx-auto transition-all duration-500 ${
+            isScrolled
+              ? 'bg-white/80 backdrop-blur-xl shadow-premium border border-brand-gray-100 rounded-full px-8 py-2'
+              : 'bg-white py-6 px-4 sm:px-6 lg:px-8 border-b border-brand-gray-100'
+          }`}
+        >
           <div className="flex justify-between items-center h-16">
-            
-            {/* Desktop: Right Links (Shop) */}
-            <div className="hidden lg:flex items-center space-x-10 space-x-reverse w-1/3">
+            <div className="hidden lg:flex items-center gap-10 w-1/3">
               {shopLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 hover:text-brand-gold relative group py-2 ${
+                  className={`text-[10px] font-bold tracking-[0.2em] transition-colors duration-300 hover:text-brand-gold relative group ${
                     location.pathname === link.path ? 'text-brand-gold' : 'text-brand-black'
                   }`}
                 >
                   {link.name}
-                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-gold transition-all duration-500 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
+                  <span
+                    className={`absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
+                      location.pathname === link.path ? 'w-full' : ''
+                    }`}
+                  />
                 </Link>
               ))}
             </div>
 
-            {/* Center: Logo */}
             <div className="flex-shrink-0 flex justify-center w-1/3">
               <Link to="/" className="flex flex-col items-center group relative">
                 <motion.div
@@ -86,74 +84,81 @@ export const Navbar = () => {
                   transition={{ duration: 0.7 }}
                   className="flex flex-col items-center"
                 >
-                  <span className="font-display font-black tracking-tighter text-brand-black group-hover:text-brand-gold transition-all duration-700 leading-none text-2xl md:text-3xl">
+                  <span className="font-display font-black tracking-tighter text-brand-black group-hover:text-brand-gold transition-colors duration-300 leading-none text-2xl md:text-3xl">
                     DOHA ROASTERY
                   </span>
-                  <span className="font-bold tracking-[0.6em] text-brand-gold transition-all duration-700 text-[8px] md:text-[10px] mt-1.5 uppercase">
+                  <span className="font-semibold tracking-[0.5em] text-brand-gold transition-colors duration-300 text-[8px] md:text-[9px] mt-1.5 uppercase">
                     محمصة الدوحة
                   </span>
                 </motion.div>
-                {/* Decorative dot */}
-                <div className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-1 h-1 bg-brand-gold rounded-full transition-all duration-700 ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
+                <div
+                  className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-1 h-1 bg-brand-gold rounded-full transition-all duration-300 ${
+                    isScrolled ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
               </Link>
             </div>
 
-            {/* Desktop: Left Links (Info + Icons) */}
-            <div className="hidden lg:flex items-center justify-end space-x-10 space-x-reverse w-1/3">
-              <div className="flex items-center space-x-8 space-x-reverse border-l border-brand-gray-100 pl-10 ml-10">
+            <div className="hidden lg:flex items-center justify-end gap-10 w-1/3">
+              <div className="flex items-center gap-8 border-r border-brand-gray-100 pr-10 ml-10">
                 {infoLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 hover:text-brand-gold relative group py-2 ${
+                    className={`text-[10px] font-bold tracking-[0.2em] transition-colors duration-300 hover:text-brand-gold relative group ${
                       location.pathname === link.path ? 'text-brand-gold' : 'text-brand-black'
                     }`}
                   >
                     {link.name}
-                    <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-brand-gold transition-all duration-500 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
+                    <span
+                      className={`absolute bottom-0 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full ${
+                        location.pathname === link.path ? 'w-full' : ''
+                      }`}
+                    />
                   </Link>
                 ))}
               </div>
-              
-              <div className="flex items-center space-x-6 space-x-reverse text-brand-black">
-                <button className="hover:text-brand-gold transition-all duration-300 p-2 hover:scale-110">
+
+              <div className="flex items-center gap-6 text-brand-black">
+                <button className="hover:text-brand-gold transition-colors duration-300 p-2 hover:scale-110">
                   <Search size={18} strokeWidth={2.5} />
                 </button>
-                <Link to="/cart" className="hover:text-brand-gold transition-all duration-300 relative group p-2 hover:scale-110">
+                <Link
+                  to="/cart"
+                  className="hover:text-brand-gold transition-colors duration-300 relative p-2 hover:scale-110"
+                >
                   <ShoppingBag size={18} strokeWidth={2.5} />
                   {totalItems > 0 && (
-                    <span className="absolute top-0 right-0 bg-brand-black text-white text-[7px] font-black min-w-[14px] h-[14px] rounded-full flex items-center justify-center border border-white shadow-sm">
+                    <span className="absolute top-0 right-0 bg-brand-black text-white text-[7px] font-bold min-w-[14px] h-[14px] rounded-full flex items-center justify-center border border-white">
                       {totalItems}
                     </span>
                   )}
                 </Link>
-                <button className="hover:text-brand-gold transition-all duration-300 p-2 hover:scale-110">
+                <button className="hover:text-brand-gold transition-colors duration-300 p-2 hover:scale-110">
                   <User size={18} strokeWidth={2.5} />
                 </button>
               </div>
             </div>
 
-            {/* Mobile: Menu & Icons */}
             <div className="flex lg:hidden items-center justify-between w-full">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-3 text-brand-black hover:text-brand-gold transition-all active:scale-90"
+                className="p-3 text-brand-black hover:text-brand-gold transition-colors active:scale-90"
                 aria-label="Toggle Menu"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
 
-              {/* Mobile Logo (Center) */}
               <Link to="/" className="flex flex-col items-center group absolute left-1/2 -translate-x-1/2">
                 <span className="text-lg font-black tracking-tighter text-brand-black">DOHA ROASTERY</span>
-                <span className="text-[8px] font-bold tracking-[0.4em] text-brand-gold -mt-1 uppercase">محمصة الدوحة</span>
+                <span className="text-[8px] font-semibold tracking-[0.35em] text-brand-gold -mt-1 uppercase">محمصة الدوحة</span>
               </Link>
 
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Link to="/cart" className="hover:text-brand-gold transition-all relative p-3 active:scale-90">
+              <div className="flex items-center gap-2">
+                <Link to="/cart" className="hover:text-brand-gold transition-colors relative p-3 active:scale-90">
                   <ShoppingBag size={22} />
                   {totalItems > 0 && (
-                    <span className="absolute top-2 right-2 bg-brand-black text-white text-[7px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-white">
+                    <span className="absolute top-2 right-2 bg-brand-black text-white text-[7px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
                       {totalItems}
                     </span>
                   )}
@@ -163,7 +168,6 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isMenuOpen && (
             <>
@@ -174,7 +178,7 @@ export const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="fixed inset-0 bg-brand-black/95 backdrop-blur-md z-[70] lg:hidden"
               />
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -185,9 +189,9 @@ export const Navbar = () => {
                 <div className="flex justify-between items-center mb-16">
                   <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center">
                     <span className="text-xl font-black tracking-tighter text-white">DOHA ROASTERY</span>
-                    <span className="text-[8px] font-bold tracking-[0.4em] text-brand-gold -mt-1 uppercase">محمصة الدوحة</span>
+                    <span className="text-[8px] font-semibold tracking-[0.35em] text-brand-gold -mt-1 uppercase">محمصة الدوحة</span>
                   </Link>
-                  <button 
+                  <button
                     onClick={() => setIsMenuOpen(false)}
                     className="p-3 text-white hover:text-brand-gold transition-colors"
                   >
@@ -195,11 +199,10 @@ export const Navbar = () => {
                   </button>
                 </div>
 
-                <div className="flex flex-col space-y-12 overflow-y-auto pb-12">
-                  {/* Shop Section */}
+                <div className="flex flex-col gap-12 overflow-y-auto pb-12">
                   <div className="space-y-6">
-                    <p className="text-[10px] font-black text-brand-gold uppercase tracking-[0.5em] mb-8 opacity-50">القائمة</p>
-                    <div className="flex flex-col space-y-6">
+                    <p className="text-[10px] font-bold text-brand-gold uppercase tracking-[0.4em] opacity-60">القائمة</p>
+                    <div className="flex flex-col gap-6">
                       {[...shopLinks, ...infoLinks].map((link, index) => (
                         <motion.div
                           key={link.path}
@@ -210,8 +213,8 @@ export const Navbar = () => {
                           <Link
                             to={link.path}
                             onClick={() => setIsMenuOpen(false)}
-                            className={`block text-4xl font-black uppercase tracking-tighter hover:text-brand-gold transition-all duration-300 ${
-                              location.pathname === link.path ? 'text-brand-gold translate-x-4' : 'text-white'
+                            className={`block text-4xl font-black uppercase tracking-tighter transition-colors duration-300 ${
+                              location.pathname === link.path ? 'text-brand-gold translate-x-4' : 'text-white hover:text-brand-gold'
                             }`}
                           >
                             {link.name}
@@ -221,28 +224,27 @@ export const Navbar = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="mt-auto pt-10 border-t border-white/10 flex flex-col gap-8">
                   <div className="flex items-center gap-6">
                     <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                       <User size={24} className="text-brand-gold" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-brand-gray-500 uppercase tracking-[0.3em]">حسابي</p>
-                      <p className="text-lg font-bold text-white">تسجيل الدخول</p>
+                      <p className="text-[10px] font-semibold text-brand-gray-500 uppercase tracking-[0.25em]">حسابي</p>
+                      <p className="text-base font-bold text-white leading-snug">تسجيل الدخول</p>
                     </div>
                   </div>
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
-                      <p className="text-lg font-display font-black text-white tracking-tight">+٩٧٤ ٤٤٥٥ ٦٦٧٧</p>
-                      <p className="text-xs text-brand-gray-500 font-medium">hello@doharoastery.qa</p>
+                      <p className="text-base font-bold text-white tracking-wide">+٩٧٤ ٤٤٥٥ ٦٦٧٧</p>
+                      <p className="text-xs text-brand-gray-500 font-normal leading-relaxed">hello@doharoastery.qa</p>
                     </div>
                     <div className="flex gap-4">
-                      {/* Social placeholders */}
-                      <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors">
+                      <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors cursor-pointer">
                         <span className="text-[10px] font-black">IG</span>
                       </div>
-                      <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors">
+                      <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors cursor-pointer">
                         <span className="text-[10px] font-black">TW</span>
                       </div>
                     </div>
