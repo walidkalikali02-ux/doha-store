@@ -48,49 +48,95 @@ export const Home = () => {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center text-center overflow-hidden bg-brand-black">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000"
-            alt="Coffee Hero"
-            className="w-full h-full object-cover opacity-60"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-brand-black/40"></div>
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <span className="text-brand-gold font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">
-              محمصة الدوحة المختصة
-            </span>
-            <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
-              القهوة كما <br />
-              <span className="text-brand-gold">يجب أن تكون</span>
-            </h1>
-            <p className="text-lg md:text-xl text-brand-gray-100 mb-12 max-w-2xl mx-auto font-medium leading-relaxed opacity-80">
-              نختار أفضل المحاصيل العالمية ونحمصها بشغف في الدوحة لنقدم لك تجربة استثنائية في كل كوب.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Link to="/products" className="btn-primary min-w-[220px] py-5">
-                تسوق الآن
-              </Link>
-              <Link to="/about" className="btn-outline border-white text-white hover:bg-white hover:text-brand-black min-w-[220px] py-5">
-                اكتشف قصتنا
-              </Link>
+      <section className="relative min-h-screen bg-[#FAFAF8] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-7 order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <span className="inline-block text-brand-gold text-sm tracking-[0.2em] uppercase mb-6 font-semibold">
+                  محمصة الدوحة المختصة
+                </span>
+                
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-[#1a1a1a] leading-[1.05] mb-8 tracking-tight">
+                  نحصل على أفضل
+                  <br />
+                  <span className="text-brand-gold">القهوة</span>
+                </h1>
+                
+                <p className="text-lg text-[#2a2a2a] leading-relaxed mb-10 max-w-lg font-medium">
+                  نختار أفضل المحاصيل من المزارعين مباشرة ونحمصها بشغف لتقديم تجربة قهوة استثنائية في كل رشفة.
+                </p>
+                
+                <Link
+                  to="/products"
+                  className="inline-flex items-center gap-3 bg-brand-gold text-[#141414] px-8 py-4 font-bold rounded-full hover:shadow-[0_8px_24px_rgba(198,163,85,0.4)] transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  اكتشف منتجاتنا
+                  <ArrowLeft size={18} />
+                </Link>
+              </motion.div>
             </div>
-          </motion.div>
-        </div>
 
-        {/* Simple Scroll Down */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-1 h-12 bg-gradient-to-b from-brand-gold to-transparent"></div>
+            <div className="lg:col-span-5 order-1 lg:order-2">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="relative h-[400px] lg:h-[520px]"
+              >
+                <motion.div
+                  animate={{ y: [0, -20, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-10 -left-10 w-[280px] h-[280px] rounded-full opacity-90"
+                  style={{
+                    background: 'radial-gradient(circle at 30% 30%, rgba(198,163,85,0.95) 0%, rgba(198,163,85,0.6) 50%, transparent 70%)'
+                  }}
+                />
+                <motion.div
+                  animate={{ y: [0, 15, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute -bottom-10 -right-10 w-[320px] h-[320px] rounded-full opacity-80"
+                  style={{
+                    background: 'radial-gradient(circle at 60% 40%, rgba(250,210,130,0.95) 0%, rgba(196,148,76,0.7) 50%, transparent 70%)'
+                  }}
+                />
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full opacity-70"
+                  style={{
+                    background: 'radial-gradient(circle at 40% 40%, rgba(226,178,101,0.95) 0%, rgba(226,178,101,0.5) 50%, transparent 70%)'
+                  }}
+                />
+              </motion.div>
+            </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16"
+          >
+            {[
+              { value: '+50', label: 'محصول' },
+              { value: '+10', label: 'سنوات' },
+              { value: '+15K', label: 'عميل' },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="bg-white/60 backdrop-blur-lg border border-white/80 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <p className="text-4xl font-black text-[#111] mb-2">{stat.value}</p>
+                <p className="text-sm text-[#333] font-medium">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
