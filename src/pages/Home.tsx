@@ -137,12 +137,16 @@ export const Home = () => {
               </div>
             ))}
           </motion.div>
+        </div>
+      </section>
 
+      <section className="bg-[#FAFAF8] py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-16 flex justify-center"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex justify-center"
           >
             <div className="flex items-center bg-[#F5F5F3] rounded-full px-5 py-3 gap-4 w-full max-w-2xl shadow-md border border-gray-100">
               <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-lg">
