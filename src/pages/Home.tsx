@@ -52,11 +52,35 @@ export const Home = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-28">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-7 order-2 lg:order-1">
+            <div className="lg:col-span-5 order-1">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex flex-col gap-6"
+              >
+                <div className="flex items-center bg-white rounded-full px-6 py-5 gap-4 shadow-lg border border-gray-100">
+                  <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-md">
+                    <Search size={22} strokeWidth={2.5} />
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="يبحث..."
+                    className="flex-1 bg-transparent text-right text-lg text-[#1a1a1a] placeholder-[#999] outline-none font-medium tracking-wide"
+                    dir="rtl"
+                  />
+                </div>
+                <p className="text-sm text-[#666] text-center font-medium">
+                  ابحث عن القهوة المفضلة لديك
+                </p>
+              </motion.div>
+            </div>
+
+            <div className="lg:col-span-7 order-2">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
               >
                 <span className="inline-block text-brand-gold text-sm tracking-[0.2em] uppercase mb-6 font-semibold">
                   محمصة الدوحة المختصة
@@ -81,64 +105,7 @@ export const Home = () => {
                 </Link>
               </motion.div>
             </div>
-
-            <div className="lg:col-span-5 order-1 lg:order-2">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="relative h-[400px] lg:h-[480px]"
-              >
-                <motion.div
-                  animate={{ y: [0, -20, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-10 -left-10 w-[280px] h-[280px] rounded-full opacity-90"
-                  style={{
-                    background: 'radial-gradient(circle at 30% 30%, rgba(198,163,85,0.95) 0%, rgba(198,163,85,0.6) 50%, transparent 70%)'
-                  }}
-                />
-                <motion.div
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute -bottom-10 -right-10 w-[320px] h-[320px] rounded-full opacity-80"
-                  style={{
-                    background: 'radial-gradient(circle at 60% 40%, rgba(250,210,130,0.95) 0%, rgba(196,148,76,0.7) 50%, transparent 70%)'
-                  }}
-                />
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full opacity-70"
-                  style={{
-                    background: 'radial-gradient(circle at 40% 40%, rgba(226,178,101,0.95) 0%, rgba(226,178,101,0.5) 50%, transparent 70%)'
-                  }}
-                />
-              </motion.div>
-            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-[#FAFAF8] py-12">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center"
-          >
-            <div className="flex items-center bg-white rounded-full px-6 py-4 gap-4 w-full max-w-2xl shadow-lg border border-gray-100">
-              <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-md">
-                <Search size={22} strokeWidth={2.5} />
-              </button>
-              <input
-                type="text"
-                placeholder="يبحث..."
-                className="flex-1 bg-transparent text-right text-lg text-[#1a1a1a] placeholder-[#999] outline-none font-medium tracking-wide"
-                dir="rtl"
-              />
-            </div>
-          </motion.div>
         </div>
       </section>
 
