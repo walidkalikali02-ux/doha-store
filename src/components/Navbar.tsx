@@ -142,11 +142,6 @@ export const Navbar = () => {
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
 
-              <Link to="/" className="flex flex-col items-center">
-                <span className="text-base sm:text-lg font-black tracking-tighter text-brand-black">DOHA ROASTERY</span>
-                <span className="text-[6px] sm:text-[8px] font-semibold tracking-[0.25em] sm:tracking-[0.35em] text-brand-gold -mt-0.5 sm:-mt-1 uppercase">محمصة الدوحة</span>
-              </Link>
-
               <div className="flex items-center gap-1 sm:gap-2">
                 <Link to="/cart" className="hover:text-brand-gold transition-colors relative p-2 sm:p-3 active:scale-90">
                   <ShoppingBag size={22} />
