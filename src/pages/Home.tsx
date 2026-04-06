@@ -90,7 +90,7 @@ export const Home = () => {
                 className="flex flex-col gap-6"
               >
                 <div className="flex items-center bg-white rounded-full px-6 py-5 gap-4 shadow-lg border border-gray-100">
-                  <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0 shadow-md">
+                  <button className="w-14 h-14 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-black transition-colors duration-300 flex-shrink-0 shadow-md">
                     <Search size={22} strokeWidth={2.5} />
                   </button>
                   <input
