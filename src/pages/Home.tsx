@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Coffee, Zap, ShieldCheck, ChevronLeft, Star, Quote, PlayCircle } from 'lucide-react';
+import { ArrowLeft, Coffee, Zap, ShieldCheck, ChevronLeft, Star, Quote, PlayCircle, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../types';
 import { ProductCard } from '../components/ProductCard';
@@ -79,6 +79,20 @@ export const Home = () => {
                   اكتشف منتجاتنا
                   <ArrowLeft size={18} />
                 </Link>
+
+                <div className="mt-8 flex items-center">
+                  <div className="flex items-center bg-[#F5F5F3] rounded-full px-2 py-2 gap-3 w-full max-w-md shadow-sm border border-gray-100">
+                    <button className="w-10 h-10 bg-[#0F766E] hover:bg-[#0D5D57] rounded-full flex items-center justify-center text-white transition-colors duration-300 flex-shrink-0">
+                      <Search size={18} strokeWidth={2.5} />
+                    </button>
+                    <input
+                      type="text"
+                      placeholder="يبحث..."
+                      className="flex-1 bg-transparent text-right text-sm text-[#1a1a1a] placeholder-[#999] outline-none font-medium tracking-wide"
+                      dir="rtl"
+                    />
+                  </div>
+                </div>
               </motion.div>
             </div>
 
