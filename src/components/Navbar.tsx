@@ -139,7 +139,7 @@ export const Navbar = () => {
                 className="p-2 sm:p-3 text-brand-black hover:text-brand-gold transition-colors active:scale-90"
                 aria-label="Toggle Menu"
               >
-                {isMenuOpen ? <X size={22} sm size={24} /> : <Menu size={22} sm size={24} />}
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
 
               <Link to="/" className="flex flex-col items-center">
@@ -149,7 +149,7 @@ export const Navbar = () => {
 
               <div className="flex items-center gap-1 sm:gap-2">
                 <Link to="/cart" className="hover:text-brand-gold transition-colors relative p-2 sm:p-3 active:scale-90">
-                  <ShoppingBag size={20} sm size={22} />
+                  <ShoppingBag size={22} />
                   {totalItems > 0 && (
                     <span className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-brand-black text-white text-[6px] sm:text-[7px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
                       {totalItems}
@@ -177,18 +177,14 @@ export const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed inset-0 z-[80] md:hidden flex flex-col p-6 sm:p-8"
+                className="fixed inset-0 z-[80] md:hidden flex flex-col p-6 sm:p-8 pt-20 sm:pt-24"
               >
-                <div className="flex justify-between items-center mb-12 sm:mb-16">
-                  <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center">
-                    <span className="text-lg sm:text-xl font-black tracking-tighter text-white">DOHA ROASTERY</span>
-                    <span className="text-[7px] sm:text-[8px] font-semibold tracking-[0.3em] sm:tracking-[0.35em] text-brand-gold -mt-0.5 sm:-mt-1 uppercase">محمصة الدوحة</span>
-                  </Link>
+                <div className="flex justify-end mb-8 sm:mb-10">
                   <button
                     onClick={() => setIsMenuOpen(false)}
                     className="p-2 sm:p-3 text-white hover:text-brand-gold transition-colors"
                   >
-                    <X size={28} sm size={32} strokeWidth={1.5} />
+                    <X size={32} strokeWidth={1.5} />
                   </button>
                 </div>
 
@@ -221,7 +217,7 @@ export const Navbar = () => {
                 <div className="mt-auto pt-8 sm:pt-10 border-t border-white/10 flex flex-col gap-6 sm:gap-8">
                   <div className="flex items-center gap-5 sm:gap-6">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                      <User size={22} sm size={24} className="text-brand-gold" />
+                      <User size={24} className="text-brand-gold" />
                     </div>
                     <div>
                       <p className="text-[9px] sm:text-[10px] font-medium text-white/50 tracking-[0.1em] sm:tracking-[0.15em]">حسابي</p>
