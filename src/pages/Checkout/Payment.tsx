@@ -2,31 +2,30 @@ import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from '@/components/common/Button';
 import {useMyFatoorah} from '@/hooks/useMyFatoorah';
-import {useCart} from '@/context/CartContext';
-import type {PaymentMethod} from '@/types';
+import {useCart} from '@/hooks/useCartLegacy';
 
 export function Payment() {
   const navigate = useNavigate();
-  const {total} = useCart();
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | 'myfatoorah'>('myfatoorah');
+  const {totalPrice} = useCart();
   const {loading, error, paymentMethods, initiatePayment, executePayment, redirectToPayment} = useMyFatoorah();
   const [selectedMethodId, setSelectedMethodId] = useState<number | null>(null);
   const [initialized, setInitialized] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<'myfatoorah'>('myfatoorah');
 
   useEffect(() => {
-    if (!initialized && total > 0) {
-      initiatePayment(total, 'QAR');
+    if (!initialized && totalPrice > 0) {
+      initiatePayment(totalPrice, 'QAR');
       setInitialized(true);
     }
-  }, [total, initialized, initiatePayment]);
+  }, [totalPrice, initialized, initiatePayment]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (paymentMethod === 'myfatoorah' && selectedMethodId) {
+    if (selectedMethodId) {
       try {
         await executePayment({
-          InvoiceValue: total,
+          InvoiceValue: totalPrice,
           CustomerName: 'Customer',
           CustomerEmail: 'customer@example.com',
           CustomerMobile: '+97450000000',
@@ -40,8 +39,6 @@ export function Payment() {
       } catch (err) {
         console.error('Payment failed:', err);
       }
-    } else {
-      navigate('/checkout/review');
     }
   };
 
@@ -64,7 +61,7 @@ export function Payment() {
                 name="payment"
                 value="myfatoorah"
                 checked={paymentMethod === 'myfatoorah'}
-                onChange={e => setPaymentMethod(e.target.value as PaymentMethod | 'myfatoorah')}
+                onChange={e => setPaymentMethod(e.target.value as 'myfatoorah')}
                 className="text-amber-600 focus:ring-amber-500"
               />
               <div className="ml-3">
@@ -81,7 +78,7 @@ export function Payment() {
                     <div className="animate-spin h-6 w-6 border-2 border-amber-600 border-t-transparent rounded-full mx-auto"></div>
                     <p className="mt-2 text-sm text-stone-500">جاري تحميل طرق الدفع...</p>
                   </div>
-                ) : (
+                ) : paymentMethods.length > 0 ? (
                   <div className="space-y-2">
                     {paymentMethods.map((method) => (
                       <label
@@ -104,6 +101,8 @@ export function Payment() {
                       </label>
                     ))}
                   </div>
+                ) : (
+                  <p className="text-sm text-stone-500">لا توجد طرق دفع متاحة</p>
                 )}
               </div>
             )}
@@ -123,7 +122,7 @@ export function Payment() {
           <Button 
             type="submit" 
             size="lg" 
-            disabled={paymentMethod === 'myfatoorah' && !selectedMethodId}
+            disabled={!selectedMethodId || loading}
           >
             {loading ? 'جاري المعالجة...' : 'متابعة الدفع'}
           </Button>
