@@ -18,6 +18,7 @@ import {Shipping} from '@/pages/Checkout/Shipping';
 import {Payment} from '@/pages/Checkout/Payment';
 import {Review} from '@/pages/Checkout/Review';
 import {Confirmation} from '@/pages/Checkout/Confirmation';
+import {PaymentDemo} from '@/pages/PaymentDemo';
 import {AccountDashboard} from '@/pages/Account/Dashboard';
 import {Profile} from '@/pages/Account/Profile';
 import {Addresses} from '@/pages/Account/Addresses';
@@ -28,12 +29,12 @@ import {Subscriptions} from '@/pages/Account/Subscriptions';
 import {SubscriptionDetail} from '@/pages/Account/SubscriptionDetail';
 import {Loyalty} from '@/pages/Account/Loyalty';
 import {Referral} from '@/pages/Account/Referral';
-import {AdminDashboard} from '@/pages/Admin/Dashboard';
+import {Dashboard as AdminDashboard} from '@/pages/Admin/Dashboard';
 import {AdminOrders} from '@/pages/Admin/Orders';
 import {AdminOrderDetail} from '@/pages/Admin/OrderDetail';
 import {AdminProducts} from '@/pages/Admin/Products';
 import {AdminCustomers} from '@/pages/Admin/Customers';
-import {AdminReviews} from '@/pages/Admin/Reviews';
+import {Reviews as AdminReviews} from '@/pages/Admin/Reviews';
 import {Products} from '@/pages/Products';
 import {Tools} from '@/pages/Tools';
 import {About} from '@/pages/About';
@@ -108,6 +109,10 @@ export const router = createBrowserRouter([
       {
         path: '/branches',
         element: <div className="py-24 text-center text-3xl font-black">فروعنا - قريباً</div>,
+      },
+      {
+        path: '/payment-demo',
+        element: <PaymentDemo />,
       },
 
       // Auth routes (public only)
