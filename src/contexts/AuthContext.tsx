@@ -6,19 +6,36 @@ import {supabase} from '@/lib/supabase';
 export {AuthContext} from './authContextDef';
 export type {AuthContextType, RegisterData} from './authContextDef';
 
+const ADMIN_EMAIL = 'walidkalikali02@gmail.com';
+
+function resolveRole(email: string, role?: string) {
+  if (email.toLowerCase() === ADMIN_EMAIL) {
+    return 'admin';
+  }
+  return role || 'guest';
+}
+
 export function AuthProvider({children}: {children: React.ReactNode}) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getSession = async () => {
-      const {data: {session}} = await supabase.auth.getSession();
+      const {
+        data: {session},
+      } = await supabase.auth.getSession();
       if (session?.user) {
         setUser({
           id: session.user.id,
           email: session.user.email || '',
-          role: session.user.user_metadata?.role || 'user',
-          name: session.user.user_metadata?.full_name || '',
+          role: resolveRole(session.user.email || '', session.user.user_metadata?.role),
+          emailVerified: session.user.email_confirmed_at != null,
+          status: 'active',
+          firstName: session.user.user_metadata?.first_name || '',
+          lastName: session.user.user_metadata?.last_name || '',
+          phone: session.user.user_metadata?.phone,
+          createdAt: session.user.created_at,
+          updatedAt: new Date().toISOString(),
         });
       }
       setIsLoading(false);
@@ -26,13 +43,21 @@ export function AuthProvider({children}: {children: React.ReactNode}) {
 
     getSession();
 
-    const {data: {subscription}} = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: {subscription},
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         setUser({
           id: session.user.id,
           email: session.user.email || '',
-          role: session.user.user_metadata?.role || 'user',
-          name: session.user.user_metadata?.full_name || '',
+          role: resolveRole(session.user.email || '', session.user.user_metadata?.role),
+          emailVerified: session.user.email_confirmed_at != null,
+          status: 'active',
+          firstName: session.user.user_metadata?.first_name || '',
+          lastName: session.user.user_metadata?.last_name || '',
+          phone: session.user.user_metadata?.phone,
+          createdAt: session.user.created_at,
+          updatedAt: new Date().toISOString(),
         });
       } else {
         setUser(null);
@@ -68,7 +93,8 @@ export function AuthProvider({children}: {children: React.ReactNode}) {
         password: data.password,
         options: {
           data: {
-            full_name: data.name,
+            first_name: data.firstName,
+            last_name: data.lastName,
           },
         },
       });

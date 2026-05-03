@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { Product } from '../types';
-import { useCart } from '../context/CartContext';
-import { ShoppingBag, Plus, Share2, Check, Facebook, Twitter, MessageCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Product} from '../legacyTypes';
+import {useCart} from '../hooks/useCartLegacy';
+import {Plus, Share2, Check, Facebook, Twitter, MessageCircle} from 'lucide-react';
+import {motion, AnimatePresence} from 'motion/react';
+import {Link} from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToCart } = useCart();
+export const ProductCard: React.FC<ProductCardProps> = ({product}) => {
+  const {addToCart} = useCart();
   const [isShared, setIsShared] = useState(false);
   const [showSocials, setShowSocials] = useState(false);
+  const formatProductPrice = (price: number) =>
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'QAR',
+      maximumFractionDigits: 0,
+    }).format(price);
 
   const productUrl = `${window.location.origin}/product/${product.id}`;
   const shareText = `اكتشف ${product.nameAr} من محمصة الدوحة`;
@@ -20,7 +26,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleGeneralShare = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const shareData = {
       title: product.nameAr,
       text: product.descriptionAr,
@@ -45,20 +51,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       name: 'WhatsApp',
       icon: MessageCircle,
       color: 'hover:bg-[#25D366]',
-      url: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + productUrl)}`
+      url: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + productUrl)}`,
     },
     {
       name: 'Facebook',
       icon: Facebook,
       color: 'hover:bg-[#1877F2]',
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`,
     },
     {
       name: 'Twitter',
       icon: Twitter,
       color: 'hover:bg-[#1DA1F2]',
-      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(productUrl)}`
-    }
+      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(productUrl)}`,
+    },
   ];
 
   return (
@@ -72,9 +78,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             referrerPolicy="no-referrer"
           />
         </Link>
-        
+
         {/* Share Section Overlay */}
-        <div 
+        <div
           className="absolute top-4 left-4 z-10 flex flex-col gap-2"
           onMouseEnter={() => setShowSocials(true)}
           onMouseLeave={() => setShowSocials(false)}
@@ -88,18 +94,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               {isShared ? (
                 <motion.div
                   key="check"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.5, opacity: 0 }}
+                  initial={{scale: 0.5, opacity: 0}}
+                  animate={{scale: 1, opacity: 1}}
+                  exit={{scale: 0.5, opacity: 0}}
                 >
                   <Check size={16} />
                 </motion.div>
               ) : (
                 <motion.div
                   key="share"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.5, opacity: 0 }}
+                  initial={{scale: 0.5, opacity: 0}}
+                  animate={{scale: 1, opacity: 1}}
+                  exit={{scale: 0.5, opacity: 0}}
                 >
                   <Share2 size={16} />
                 </motion.div>
@@ -110,12 +116,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <AnimatePresence>
             {showSocials && (
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{opacity: 0, y: -10}}
+                animate={{opacity: 1, y: 0}}
+                exit={{opacity: 0, y: -10}}
                 className="flex flex-col gap-2"
               >
-                {socialLinks.map((social) => (
+                {socialLinks.map(social => (
                   <a
                     key={social.name}
                     href={social.url}
@@ -123,7 +129,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     rel="noopener noreferrer"
                     className={`w-10 h-10 bg-white/90 backdrop-blur-sm flex items-center justify-center text-brand-black ${social.color} hover:text-white transition-all duration-300 shadow-sm`}
                     title={`مشاركة عبر ${social.name}`}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={e => e.stopPropagation()}
                   >
                     <social.icon size={16} />
                   </a>
@@ -139,7 +145,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
       </div>
-      
+
       <div className="mt-6 text-center px-4">
         <Link to={`/product/${product.id}`} className="block">
           <h3 className="text-[13px] font-black text-brand-black uppercase tracking-[0.1em] mb-1 hover:text-brand-gold transition-colors leading-tight">
@@ -149,17 +155,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.originAr || 'محصول مختص'}
           </p>
           <div className="flex items-center justify-center gap-1.5 font-display font-black text-brand-black text-lg">
-            <span>{product.price}</span>
-            <span className="text-[10px] font-sans">ريال</span>
+            <span>{formatProductPrice(product.price)}</span>
           </div>
         </Link>
-        
+
         <div className="mt-6 pt-6 border-t border-brand-gray-50">
           <button
             onClick={() => addToCart(product)}
             className="w-full py-4 bg-brand-black text-white text-[9px] font-black uppercase tracking-[0.3em] hover:bg-brand-gold transition-all duration-500 flex items-center justify-center gap-2 group/btn"
           >
-            <Plus size={14} className="group-hover/btn:rotate-90 transition-transform duration-500" /> 
+            <Plus
+              size={14}
+              className="group-hover/btn:rotate-90 transition-transform duration-500"
+            />
             إضافة للسلة
           </button>
         </div>

@@ -1,27 +1,35 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { configError, supabase } from '@/lib/supabase';
 
 export function SupabaseTest() {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [error, setError] = useState<string | null>(null);
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
     async function testConnection() {
+      if (configError) {
+        setError(configError);
+        setStatus('error');
+        return;
+      }
+
       try {
-        // Test by fetching database metadata
-        const { data, error } = await supabase.from('products').select('count');
+        const { count, error } = await supabase
+          .from('products')
+          .select('*', { count: 'exact', head: true });
         
         if (error) {
           console.error('Supabase error:', error);
           setError(error.message);
           setStatus('error');
         } else {
-          console.log('Supabase connected! Count:', data);
+          setCount(count ?? 0);
           setStatus('success');
         }
       } catch (err) {
         console.error('Connection failed:', err);
-        setError(String(err));
+        setError(err instanceof Error ? err.message : String(err));
         setStatus('error');
       }
     }
@@ -34,7 +42,7 @@ export function SupabaseTest() {
   
   return (
     <div className="p-4 bg-green-100 text-green-800">
-      Supabase connected successfully!
+      Supabase connected successfully! Products: {count ?? 0}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { initiatePayment as apiInitiatePayment, executePayment as apiExecutePayment, PaymentMethod, ExecutePaymentRequest } from '@/services/myfatoorah';
+import { initiatePayment as apiInitiatePayment, executePayment as apiExecutePayment, PaymentMethod } from '@/services/myfatoorah';
 
 export function useMyFatoorah() {
   const [loading, setLoading] = useState(false);
@@ -23,16 +23,32 @@ export function useMyFatoorah() {
     }
   }, []);
 
-  const executePayment = useCallback(async (request: ExecutePaymentRequest) => {
+  const executePayment = useCallback(async (request: {
+    InvoiceValue: number;
+    CustomerName: string;
+    CustomerEmail: string;
+    CustomerMobile: string;
+    CustomerReference: string;
+    DisplayCurrencyIso: string;
+    PaymentMethodId: number;
+    SuccessUrl: string;
+    ErrorUrl: string;
+    Language?: string;
+  }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await apiExecutePayment(request);
-      if (response.IsSuccess && response.Data?.InvoiceURL) {
-        setPaymentUrl(response.Data.InvoiceURL);
-        return response;
-      }
-      throw new Error(response.Message || 'Payment execution failed');
+      const response = await apiExecutePayment({
+        orderId: request.CustomerReference,
+        paymentMethodId: request.PaymentMethodId,
+        customerName: request.CustomerName,
+        customerEmail: request.CustomerEmail,
+        customerMobile: request.CustomerMobile || undefined,
+        successUrl: request.SuccessUrl,
+        errorUrl: request.ErrorUrl,
+      });
+      setPaymentUrl(response.InvoiceURL);
+      return response;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Payment execution failed';
       setError(errorMessage);

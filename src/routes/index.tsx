@@ -1,4 +1,4 @@
-import {createBrowserRouter, Navigate, Outlet} from 'react-router-dom';
+import {createBrowserRouter, Navigate, Outlet, useLocation} from 'react-router-dom';
 import {AdminLayout} from '@/components/admin/AdminLayout';
 import {CartProvider} from '@/contexts/CartContext';
 import {AuthProvider} from '@/contexts/AuthContext';
@@ -44,10 +44,24 @@ import {Tools} from '@/pages/Tools';
 import {About} from '@/pages/About';
 import {Contact} from '@/pages/Contact';
 import {Wholesale} from '@/pages/Wholesale';
+import {ProductEditor} from '@/pages/Admin/ProductEditor';
 import {ProductDetail} from '@/pages/ProductDetail';
 import {Track} from '@/pages/Track';
 import {Navbar} from '@/components/Navbar';
 import {Footer} from '@/components/Footer';
+
+function AppShell() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <>
+      {!isAdminRoute && <Navbar />}
+      <Outlet />
+      {!isAdminRoute && <Footer />}
+    </>
+  );
+}
 
 export const router = createBrowserRouter([
   {
@@ -55,9 +69,7 @@ export const router = createBrowserRouter([
       <AuthProvider>
         <CartProvider>
           <LegacyCartProvider>
-            <Navbar />
-            <Outlet />
-            <Footer />
+            <AppShell />
           </LegacyCartProvider>
         </CartProvider>
       </AuthProvider>
@@ -329,6 +341,14 @@ export const router = createBrowserRouter([
           {
             path: 'products',
             element: <AdminProducts />,
+          },
+          {
+            path: 'products/new',
+            element: <ProductEditor />,
+          },
+          {
+            path: 'products/:productId/edit',
+            element: <ProductEditor />,
           },
           {
             path: 'categories',

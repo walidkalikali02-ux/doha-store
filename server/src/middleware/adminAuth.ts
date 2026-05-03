@@ -7,6 +7,8 @@ export interface AdminUser {
   role: string;
 }
 
+const ADMIN_EMAIL = 'walidkalikali02@gmail.com';
+
 export async function requireAdminAuth(req: Request, res: Response): Promise<AdminUser | null> {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -24,18 +26,19 @@ export async function requireAdminAuth(req: Request, res: Response): Promise<Adm
 
   const { data: { user: userMeta } } = await supabaseAdmin.auth.admin.getUser(user.id);
   const userRole = userMeta?.app_metadata?.role || userMeta?.role;
-  if (!userMeta || userRole !== 'admin') {
+  const isAdminEmail = (user.email || '').toLowerCase() === ADMIN_EMAIL;
+  if (!userMeta || (userRole !== 'admin' && !isAdminEmail)) {
     res.status(403).json({ error: 'forbidden', code: 403, message: 'Admin access required' });
     return null;
   }
 
-  return { id: user.id, email: user.email, role: userRole };
+  return { id: user.id, email: user.email, role: userRole || 'admin' };
 }
 
 export function adminAuth(req: Request, res: Response, next: NextFunction) {
   requireAdminAuth(req, res).then(user => {
     if (user) {
-      (req as any).adminUser = user;
+      (req as Request & { adminUser?: AdminUser }).adminUser = user;
       next();
     }
   }).catch(() => {

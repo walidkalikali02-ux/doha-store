@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Server
+server/node_modules/
+server/dist/
+
+# Tests
+tests/playwright-report/
+tests/test-results/

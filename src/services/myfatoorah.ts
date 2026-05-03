@@ -1,75 +1,91 @@
 import axios from 'axios';
 
-const MYFATOORAH_API_KEY = import.meta.env.VITE_MYFATOORAH_API_KEY || '';
-const MYFATOORAH_BASE_URL = import.meta.env.VITE_MYFATOORAH_BASE_URL || 'https://apitest.myfatoorah.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
-export interface InitiatePaymentRequest {
-  InvoiceAmount: number;
-  CurrencyIso: string;
-}
+const api = axios.create({
+  baseURL: API_URL,
+});
 
-export interface ExecutePaymentRequest {
-  InvoiceValue: number;
-  CustomerName: string;
-  CustomerEmail: string;
-  CustomerMobile: string;
-  CustomerReference: string;
-  DisplayCurrencyIso: string;
-  PaymentMethodId: number;
-  SuccessUrl: string;
-  ErrorUrl: string;
-  Language?: string;
-}
-
-export interface PaymentResponse {
-  IsSuccess: boolean;
-  Message: string;
-  ValidationErrors: string[];
-  Data: {
-    InvoiceId: number;
-    InvoiceURL: string;
-    CustomerReference: string;
-    UserDefinedField: string;
-  };
-}
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 409 && error.response?.data?.error === 'discount_invalid') {
+      const customError = new Error(error.response.data.message || 'Discount code is invalid');
+      customError.name = 'DISCOUNT_INVALID';
+      return Promise.reject(customError);
+    }
+    return Promise.reject(error);
+  }
+);
 
 export interface PaymentMethod {
   PaymentMethodId: number;
-  PaymentMethodAr: string;
   PaymentMethodEn: string;
-  PaymentCode: string;
-  IsDirectPayment: boolean;
+  PaymentMethodAr: string;
+  ServiceCharge: number;
+  TotalAmount: number;
   CurrencyIso: string;
-  IsAttached: boolean;
+  IsDirectPayment: boolean;
+  IsEmbeddedSupported: boolean;
+  ImageUrl: string;
 }
 
-const api = axios.create({
-  baseURL: MYFATOORAH_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${MYFATOORAH_API_KEY}`,
-  },
-});
+export interface ExecutePaymentRequest {
+  orderId: string;
+  paymentMethodId: number;
+  customerName: string;
+  customerEmail: string;
+  customerMobile?: string;
+  successUrl: string;
+  errorUrl: string;
+  InvoiceItems?: { ItemName: string; Quantity: number; UnitPrice: number }[];
+}
 
-export async function initiatePayment(amount: number, currency: string = 'QAR'): Promise<{ PaymentMethods: PaymentMethod[] }> {
-  const response = await api.post('/v2/InitiatePayment', {
+export interface ExecutePaymentResponse {
+  InvoiceId: number;
+  InvoiceURL: string;
+  PaymentMethodId: number;
+}
+
+export interface GetPaymentStatusRequest {
+  Key: string;
+  KeyType: 'InvoiceId' | 'PaymentId' | 'CustomerReference';
+}
+
+export interface PaymentStatusResponse {
+  InvoiceId: number;
+  InvoiceStatus: string;
+  InvoiceValue: number;
+  PaidAt?: string;
+  CustomerName: string;
+  CustomerEmail: string;
+}
+
+export async function initiatePayment(
+  amount: number,
+  currency: string = 'QAR'
+): Promise<{ PaymentMethods: PaymentMethod[] }> {
+  const response = await api.post('/api/v1/payments/initiate', {
     InvoiceAmount: amount,
     CurrencyIso: currency,
   });
   return response.data.Data;
 }
 
-export async function executePayment(request: ExecutePaymentRequest): Promise<PaymentResponse> {
-  const response = await api.post('/v2/ExecutePayment', request);
-  return response.data;
+export async function executePayment(
+  request: ExecutePaymentRequest
+): Promise<ExecutePaymentResponse> {
+  const response = await api.post('/api/v1/payments/execute', request);
+  return response.data.Data;
 }
 
-export async function getPaymentStatus(invoiceId: string, keyType: 'InvoiceId' | 'CustomerReference' = 'InvoiceId'): Promise<PaymentResponse> {
-  const response = await api.post('/v2/PaymentStatus', {
-    Key: invoiceId,
+export async function getPaymentStatus(
+  key: string,
+  keyType: 'InvoiceId' | 'PaymentId' | 'CustomerReference' = 'InvoiceId'
+): Promise<PaymentStatusResponse> {
+  const response = await api.post('/api/v1/payments/status', {
+    Key: key,
     KeyType: keyType,
   });
-  return response.data;
+  return response.data.Data;
 }
-
-export { MYFATOORAH_BASE_URL };

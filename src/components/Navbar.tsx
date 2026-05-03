@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Search, User, Menu, X } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { motion, AnimatePresence } from 'motion/react';
+import {Link, useLocation} from 'react-router-dom';
+import {ShoppingBag, Search, User, Menu, X} from 'lucide-react';
+import {useCart} from '../hooks/useCartLegacy';
+import {motion, AnimatePresence} from 'motion/react';
 
 export const Navbar = () => {
-  const { totalItems } = useCart();
+  const {totalItems} = useCart();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const location = useLocation();
@@ -19,16 +19,16 @@ export const Navbar = () => {
   }, []);
 
   const shopLinks = [
-    { name: 'الرئيسية', path: '/' },
-    { name: 'القهوة', path: '/products?cat=coffee' },
-    { name: 'الأدوات', path: '/tools' },
-    { name: 'مبيعات الجملة', path: '/wholesale' },
+    {name: 'الرئيسية', path: '/'},
+    {name: 'القهوة', path: '/products?cat=coffee'},
+    {name: 'الأدوات', path: '/tools'},
+    {name: 'مبيعات الجملة', path: '/wholesale'},
   ];
 
   const infoLinks = [
-    { name: 'المدوّنة', path: '/blog' },
-    { name: 'فروعنا', path: '/branches' },
-    { name: 'عنَّا', path: '/about' },
+    {name: 'المدوّنة', path: '/blog'},
+    {name: 'فروعنا', path: '/branches'},
+    {name: 'عنَّا', path: '/about'},
   ];
 
   return (
@@ -59,7 +59,7 @@ export const Navbar = () => {
         >
           <div className="flex justify-between items-center h-12 sm:h-14 md:h-16">
             <div className="hidden lg:flex items-center gap-10 w-1/3">
-              {shopLinks.map((link) => (
+              {shopLinks.map(link => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -78,7 +78,7 @@ export const Navbar = () => {
             </div>
 
             <div className="hidden md:flex items-center gap-6 lg:hidden w-1/3 justify-start">
-              {shopLinks.slice(0, 3).map((link) => (
+              {shopLinks.slice(0, 3).map(link => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -94,8 +94,8 @@ export const Navbar = () => {
             <div className="flex-shrink-0 flex justify-center w-auto lg:w-1/3">
               <Link to="/" className="flex flex-col items-center group relative">
                 <motion.div
-                  animate={{ scale: isScrolled ? 0.85 : 1 }}
-                  transition={{ duration: 0.7 }}
+                  animate={{scale: isScrolled ? 0.85 : 1}}
+                  transition={{duration: 0.7}}
                   className="flex flex-col items-center"
                 >
                   <span className="font-display font-black tracking-tighter text-brand-black group-hover:text-brand-gold transition-colors duration-300 leading-none text-lg sm:text-xl md:text-2xl lg:text-3xl">
@@ -143,7 +143,10 @@ export const Navbar = () => {
               </button>
 
               <div className="flex items-center gap-1 sm:gap-2">
-                <Link to="/cart" className="hover:text-brand-gold transition-colors relative p-2 sm:p-3 active:scale-90">
+                <Link
+                  to="/cart"
+                  className="hover:text-brand-gold transition-colors relative p-2 sm:p-3 active:scale-90"
+                >
                   <ShoppingBag size={22} />
                   {totalItems > 0 && (
                     <span className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-brand-black text-white text-[6px] sm:text-[7px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
@@ -160,18 +163,18 @@ export const Navbar = () => {
           {isMenuOpen && (
             <>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
                 onClick={() => setIsMenuOpen(false)}
                 className="fixed inset-0 bg-brand-black/95 backdrop-blur-md z-[70] md:hidden"
               />
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                initial={{opacity: 0, y: 20}}
+                animate={{opacity: 1, y: 0}}
+                exit={{opacity: 0, y: 20}}
+                transition={{type: 'spring', damping: 25, stiffness: 200}}
                 className="fixed inset-0 z-[80] md:hidden flex flex-col p-6 sm:p-8 pt-20 sm:pt-24"
               >
                 <div className="flex justify-end mb-8 sm:mb-10">
@@ -185,20 +188,24 @@ export const Navbar = () => {
 
                 <div className="flex flex-col gap-10 sm:gap-12 overflow-y-auto pb-12">
                   <div className="space-y-5 sm:space-y-6">
-                    <p className="text-[9px] sm:text-[10px] font-semibold text-brand-gold uppercase tracking-[0.3em] sm:tracking-[0.4em] opacity-60">القائمة</p>
+                    <p className="text-[9px] sm:text-[10px] font-semibold text-brand-gold uppercase tracking-[0.3em] sm:tracking-[0.4em] opacity-60">
+                      القائمة
+                    </p>
                     <div className="flex flex-col gap-4 sm:gap-5">
                       {[...shopLinks, ...infoLinks].map((link, index) => (
                         <motion.div
                           key={link.path}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 + 0.2 }}
+                          initial={{opacity: 0, x: -20}}
+                          animate={{opacity: 1, x: 0}}
+                          transition={{delay: index * 0.05 + 0.2}}
                         >
                           <Link
                             to={link.path}
                             onClick={() => setIsMenuOpen(false)}
                             className={`block text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-300 ${
-                              location.pathname === link.path ? 'text-brand-gold translate-x-4' : 'text-white hover:text-brand-gold'
+                              location.pathname === link.path
+                                ? 'text-brand-gold translate-x-4'
+                                : 'text-white hover:text-brand-gold'
                             }`}
                           >
                             {link.name}
@@ -215,14 +222,25 @@ export const Navbar = () => {
                       <User size={24} className="text-brand-gold" />
                     </div>
                     <div>
-                      <p className="text-[9px] sm:text-[10px] font-medium text-white/50 tracking-[0.1em] sm:tracking-[0.15em]">حسابي</p>
-                      <p className="text-sm sm:text-base font-bold text-white leading-snug">تسجيل الدخول</p>
+                      <p className="text-[9px] sm:text-[10px] font-medium text-white/50 tracking-[0.1em] sm:tracking-[0.15em]">
+                        حسابي
+                      </p>
+                      <p className="text-sm sm:text-base font-bold text-white leading-snug">
+                        تسجيل الدخول
+                      </p>
                     </div>
                   </div>
                   <div className="flex justify-between items-end">
                     <div className="space-y-1">
-                      <p className="text-sm sm:text-base font-bold text-white tracking-wide" dir="ltr">+974 44 55 66 77</p>
-                      <p className="text-[11px] sm:text-xs text-white/40 font-normal leading-relaxed">hello@doharoastery.qa</p>
+                      <p
+                        className="text-sm sm:text-base font-bold text-white tracking-wide"
+                        dir="ltr"
+                      >
+                        +974 44 55 66 77
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-white/40 font-normal leading-relaxed">
+                        hello@doharoastery.qa
+                      </p>
                     </div>
                     <div className="flex gap-3 sm:gap-4">
                       <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-brand-gold hover:text-brand-gold transition-colors cursor-pointer">

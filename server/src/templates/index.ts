@@ -1,0 +1,1 @@
+export { default as orderConfirmation } from './order-confirmation';
