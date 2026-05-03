@@ -1,5 +1,6 @@
 import {Navigate} from 'react-router-dom';
 import {useAuth} from '@/hooks/useAuth';
+import type {User} from '@/types';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,15 +11,22 @@ export function ProtectedRoute({children, requireAdmin = false}: ProtectedRouteP
   const {user, isLoading} = useAuth();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin w-8 h-8 border-4 border-[#c6a355] border-t-transparent rounded-full" />
+      </div>
+    );
   }
 
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  if (requireAdmin && !['admin', 'super_admin'].includes(user.role)) {
-    return <Navigate to="/" replace />;
+  if (requireAdmin) {
+    const isAdmin = (user as User & {role?: string})?.role === 'admin';
+    if (!isAdmin) {
+      return <Navigate to="/403" replace />;
+    }
   }
 
   return <>{children}</>;
@@ -37,3 +45,5 @@ export function PublicOnlyRoute({children}: PublicOnlyRouteProps) {
 
   return <>{children}</>;
 }
+
+export default ProtectedRoute;

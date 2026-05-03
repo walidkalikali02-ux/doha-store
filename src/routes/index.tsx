@@ -18,7 +18,9 @@ import {Shipping} from '@/pages/Checkout/Shipping';
 import {Payment} from '@/pages/Checkout/Payment';
 import {Review} from '@/pages/Checkout/Review';
 import {Confirmation} from '@/pages/Checkout/Confirmation';
-import {PaymentDemo} from '@/pages/PaymentDemo';
+import {PaymentDemo} from '@/pages/Checkout/PaymentDemo';
+import {EmbeddedPaymentDemo} from '@/pages/Checkout/EmbeddedPaymentDemo';
+import {QatarPaymentDemo} from '@/pages/Checkout/QatarPaymentDemo';
 import {AccountDashboard} from '@/pages/Account/Dashboard';
 import {Profile} from '@/pages/Account/Profile';
 import {Addresses} from '@/pages/Account/Addresses';
@@ -33,14 +35,19 @@ import {Dashboard as AdminDashboard} from '@/pages/Admin/Dashboard';
 import {AdminOrders} from '@/pages/Admin/Orders';
 import {AdminOrderDetail} from '@/pages/Admin/OrderDetail';
 import {AdminProducts} from '@/pages/Admin/Products';
+import {AdminCategories} from '@/pages/Admin/Categories';
 import {AdminCustomers} from '@/pages/Admin/Customers';
 import {Reviews as AdminReviews} from '@/pages/Admin/Reviews';
+import {AdminAnalytics} from '@/pages/Admin/Analytics';
 import {Products} from '@/pages/Products';
 import {Tools} from '@/pages/Tools';
 import {About} from '@/pages/About';
 import {Contact} from '@/pages/Contact';
+import {Wholesale} from '@/pages/Wholesale';
 import {ProductDetail} from '@/pages/ProductDetail';
+import {Track} from '@/pages/Track';
 import {Navbar} from '@/components/Navbar';
+import {Footer} from '@/components/Footer';
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +57,7 @@ export const router = createBrowserRouter([
           <LegacyCartProvider>
             <Navbar />
             <Outlet />
+            <Footer />
           </LegacyCartProvider>
         </CartProvider>
       </AuthProvider>
@@ -97,10 +105,16 @@ export const router = createBrowserRouter([
         element: <Contact />,
       },
       {
+        path: '/track',
+        element: <Track />,
+      },
+      {
+        path: '/track/:orderNumber',
+        element: <Track />,
+      },
+      {
         path: '/wholesale',
-        element: (
-          <div className="py-24 text-center text-3xl font-black">مبيعات الجملة - قريباً</div>
-        ),
+        element: <Wholesale />,
       },
       {
         path: '/blog',
@@ -113,6 +127,14 @@ export const router = createBrowserRouter([
       {
         path: '/payment-demo',
         element: <PaymentDemo />,
+      },
+      {
+        path: '/embedded-payment-demo',
+        element: <EmbeddedPaymentDemo />,
+      },
+      {
+        path: '/qatar-payment-demo',
+        element: <QatarPaymentDemo />,
       },
 
       // Auth routes (public only)
@@ -151,6 +173,26 @@ export const router = createBrowserRouter([
       {
         path: '/verify-email',
         element: <VerifyEmail />,
+      },
+
+      // 403 Forbidden
+      {
+        path: '/403',
+        element: (
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <h1 className="text-6xl font-black text-[#c6a355]">403</h1>
+              <h2 className="text-2xl font-bold text-[#000000] mt-4">Access Denied</h2>
+              <p className="text-[#737373] mt-2">You don't have permission to access this page.</p>
+              <a
+                href="/"
+                className="inline-block mt-6 px-6 py-3 bg-[#000000] text-white rounded-lg font-medium hover:bg-[#333333] transition-colors"
+              >
+                Go Home
+              </a>
+            </div>
+          </div>
+        ),
       },
 
       // Checkout flow
@@ -289,12 +331,20 @@ export const router = createBrowserRouter([
             element: <AdminProducts />,
           },
           {
+            path: 'categories',
+            element: <AdminCategories />,
+          },
+          {
             path: 'customers',
             element: <AdminCustomers />,
           },
           {
             path: 'reviews',
             element: <AdminReviews />,
+          },
+          {
+            path: 'analytics',
+            element: <AdminAnalytics />,
           },
         ],
       },
