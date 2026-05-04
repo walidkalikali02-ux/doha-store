@@ -51,7 +51,7 @@ export function Payment() {
   const {setPayment} = checkoutActions;
   const shippingData = useShippingData();
   const cartItems = useCartItems();
-  const {subtotal, tax} = useCartSummary();
+  const {subtotal} = useCartSummary();
   const orderStore = useOrderStore();
 
   const errorCode = searchParams.get('error');
@@ -73,7 +73,7 @@ export function Payment() {
   const shippingCost = shippingData?.shippingMethod
     ? getShippingCost(shippingData.shippingMethod)
     : 0;
-  const total = subtotal + shippingCost + tax;
+  const total = subtotal + shippingCost;
 
   useEffect(() => {
     if (!shippingData) {
@@ -509,17 +509,12 @@ export function Payment() {
                   <span className="text-green-600 font-medium">مجاني</span>
                 </div>
 
-                <div className="flex justify-between text-sm">
-                  <span className="text-brand-gray-500">ضريبة القيمة المضافة (8%)</span>
-                  <span className="font-medium text-brand-black">{formatPrice(tax)}</span>
-                </div>
-
                 <div className="pt-4 border-t border-brand-gray-200">
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-brand-black">الإجمالي</span>
                       <p className="text-[10px] text-brand-gray-500 uppercase tracking-wider">
-                        Total including VAT
+                        Total
                       </p>
                     </div>
                     <motion.span

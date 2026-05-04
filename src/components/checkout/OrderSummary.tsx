@@ -5,7 +5,6 @@ interface OrderSummaryProps {
   items: CartItem[];
   subtotal: number;
   shipping?: number;
-  tax?: number;
   discount?: number;
   discountCode?: string;
   onRemoveDiscount?: () => void;
@@ -15,12 +14,11 @@ export function OrderSummary({
   items,
   subtotal,
   shipping = 0,
-  tax = 0,
   discount = 0,
   discountCode,
   onRemoveDiscount,
 }: OrderSummaryProps) {
-  const total = subtotal + shipping + tax - discount;
+  const total = subtotal + shipping - discount;
 
   return (
     <div className="bg-white rounded-lg border border-stone-200 p-6 space-y-4">
@@ -59,13 +57,6 @@ export function OrderSummary({
           <div className="flex justify-between">
             <span className="text-stone-600">Shipping</span>
             <span className="font-medium text-green-600">Free</span>
-          </div>
-        )}
-
-        {tax > 0 && (
-          <div className="flex justify-between">
-            <span className="text-stone-600">Tax</span>
-            <span className="font-medium">{formatPrice(tax)}</span>
           </div>
         )}
 

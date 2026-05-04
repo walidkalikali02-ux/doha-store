@@ -39,7 +39,7 @@ export function Confirmation() {
   const shippingData = useShippingData();
   const paymentData = usePaymentData();
   const cartItems = useCartItems();
-  const {subtotal, tax} = useCartSummary();
+  const {subtotal} = useCartSummary();
   const {clearCheckout} = useCheckoutActions();
   const [emailResent, setEmailResent] = useState(false);
   const [isResending, setIsResending] = useState(false);
@@ -106,7 +106,7 @@ export function Confirmation() {
         })),
       });
     }
-  }, [orderData, cartItems, subtotal, tax, paymentData, shippingData, toast]);
+  }, [orderData, cartItems, subtotal, paymentData, shippingData, toast]);
 
   const handleResendEmail = async () => {
     if (emailResent || isResending) return;
@@ -356,10 +356,6 @@ export function Confirmation() {
                 <span className="text-green-600">-{formatPrice(orderData.discountAmount)}</span>
               </div>
             )}
-            <div className="flex justify-between">
-              <span className="text-stone-500">الضريبة</span>
-              <span className="text-stone-900">{formatPrice(orderData.taxAmount)}</span>
-            </div>
             <div className="flex justify-between pt-2 border-t border-stone-200 font-bold text-lg">
               <span className="text-stone-900">الإجمالي</span>
               <span className="text-amber-600">{formatPrice(orderData.total)}</span>

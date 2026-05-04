@@ -16,13 +16,13 @@ export function Review() {
   const shippingData = useShippingData();
   const paymentData = usePaymentData();
   const cartItems = useCartItems();
-  const {subtotal, tax} = useCartSummary();
+  const {subtotal} = useCartSummary();
   const {setOrder, setCurrentStep} = useCheckoutActions();
 
   const shippingCost = shippingData?.shippingMethod
     ? getShippingCost(shippingData.shippingMethod)
     : 0;
-  const total = subtotal + shippingCost + tax;
+  const total = subtotal + shippingCost;
 
   useEffect(() => {
     if (shippingData) {
@@ -56,7 +56,7 @@ export function Review() {
       orderNumber: `ORD-${Date.now()}`,
       subtotal,
       shippingCost,
-      taxAmount: tax,
+      taxAmount: 0,
       discountAmount: 0,
       total,
     });
@@ -128,10 +128,6 @@ export function Review() {
           <div className="flex justify-between">
             <span>الشحن</span>
             <span>{shippingCost === 0 ? 'مجاني' : formatPrice(shippingCost)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>الضريبة</span>
-            <span>{formatPrice(tax)}</span>
           </div>
           <div className="flex justify-between pt-2 border-t font-bold">
             <span>الإجمالي</span>

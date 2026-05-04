@@ -11,7 +11,6 @@ interface CheckoutSummaryProps {
   items: CartItem[];
   subtotal: number;
   shipping?: number;
-  tax?: number;
   showDiscountInput?: boolean;
 }
 
@@ -19,7 +18,6 @@ export function CheckoutSummary({
   items,
   subtotal,
   shipping = 0,
-  tax = 0,
   showDiscountInput = true,
 }: CheckoutSummaryProps) {
   const {discount, setDiscount} = useCheckoutStore();
@@ -31,7 +29,7 @@ export function CheckoutSummary({
   const toast = useToast();
 
   const discountAmount = discount?.amount ?? 0;
-  const total = subtotal + shipping + tax - discountAmount;
+  const total = subtotal + shipping - discountAmount;
 
   const handleApplyCode = async () => {
     if (!inputValue.trim()) return;
@@ -194,13 +192,6 @@ export function CheckoutSummary({
           <div className="flex justify-between">
             <span className="text-stone-600">الشحن</span>
             <span className="font-medium text-green-600">مجاني</span>
-          </div>
-        )}
-
-        {tax > 0 && (
-          <div className="flex justify-between">
-            <span className="text-stone-600">الضريبة</span>
-            <span className="font-medium">{formatPrice(tax)}</span>
           </div>
         )}
 

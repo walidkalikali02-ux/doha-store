@@ -257,10 +257,6 @@ export function OrderDetail() {
             <span className="text-gray-600">Shipping</span>
             <span className="text-gray-900">{formatCurrency(order.shipping)}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Tax</span>
-            <span className="text-gray-900">{formatCurrency(order.tax)}</span>
-          </div>
           <div className="pt-2 border-t border-gray-200 flex justify-between">
             <span className="font-medium text-gray-900">Total</span>
             <span className="font-medium text-gray-900">{formatCurrency(order.total)}</span>

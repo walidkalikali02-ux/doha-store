@@ -187,7 +187,7 @@ export function Shipping() {
   const selectedMethodData = shippingMethodsData?.find(m => m.method === selectedMethod);
   const shippingCost = selectedMethodData?.cost ?? SHIPPING_OPTIONS.find(s => s.id === selectedMethod)?.price ?? 0;
 
-  const {subtotal, tax, total, itemCount} = useCartSummary();
+  const {subtotal, total, itemCount} = useCartSummary();
   const totalItems = itemCount;
 
   const handleShippingMethodChange = (method: ShippingMethod) => {
@@ -897,17 +897,12 @@ export function Shipping() {
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="flex justify-between text-sm">
-                  <span className="text-brand-gray-500">ضريبة القيمة المضافة (8%)</span>
-                  <span className="font-medium text-brand-black">{formatPrice(tax)}</span>
-                </div>
-
                 <div className="pt-4 border-t border-brand-gray-200">
                   <div className="flex justify-between items-center">
                     <div>
                       <span className="text-sm text-brand-black">الإجمالي</span>
                       <p className="text-[10px] text-brand-gray-500 uppercase tracking-wider">
-                        Total including VAT
+                        Total
                       </p>
                     </div>
                     <motion.span

@@ -168,16 +168,12 @@ export function useCartSummary() {
   return useMemo(() => {
     const itemCount = items.reduce((count, item) => count + item.quantity, 0);
     const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
-    const estimatedShipping = 0;
-    const estimatedTax = Math.round(subtotal * 0.08);
-    const total = subtotal + estimatedShipping + estimatedTax;
+    const total = subtotal;
 
     return {
       itemCount,
       subtotal,
       discount: 0,
-      estimatedShipping,
-      estimatedTax,
       total,
     };
   }, [items]);

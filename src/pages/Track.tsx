@@ -614,10 +614,6 @@ export function Track() {
                         {order.shippingCost === 0 ? 'مجاني' : formatPrice(order.shippingCost)}
                       </dd>
                     </div>
-                    <div className="flex justify-between">
-                      <dt className="text-brand-gray-500">الضريبة</dt>
-                      <dd className="font-medium text-brand-black">{formatPrice(order.taxAmount)}</dd>
-                    </div>
                     <div className="pt-2 border-t border-brand-gray-200 flex justify-between">
                       <dt className="font-bold text-brand-black">الإجمالي</dt>
                       <dd className="font-bold text-brand-black">{formatPrice(order.total)}</dd>

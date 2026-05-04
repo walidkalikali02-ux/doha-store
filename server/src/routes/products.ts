@@ -1,8 +1,9 @@
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import { supabaseAdmin } from '../lib/supabase';
-import { logAudit, sanitizeForAudit } from '../lib/audit';
 import { requireAdminAuth } from '../middleware/adminAuth';
+import { getCachedProducts, getCachedProduct, invalidateProductCache } from '../lib/productCache';
+import { logAudit, sanitizeForAudit } from '../lib/audit';
 
 const router = express.Router();
 
@@ -25,6 +26,38 @@ interface Product {
 
 router.get('/', async (_req: Request, res: Response) => {
   res.json({ message: 'List products - TODO' });
+});
+
+router.get('/cached', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { category, featured, limit } = req.query;
+
+    const products = await getCachedProducts(supabaseAdmin, {
+      category: category as string,
+      featured: featured === 'true' ? true : featured === 'false' ? false : undefined,
+      limit: limit ? parseInt(limit as string) : undefined,
+    });
+
+    res.json({ products, cached: true });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:productId', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { productId } = req.params;
+
+    const cached = await getCachedProduct(supabaseAdmin, productId);
+
+    if (cached) {
+      return res.json({ product: cached, cached: true });
+    }
+
+    return res.status(404).json({ error: 'not_found', message: 'Product not found' });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.patch('/:productId/inventory', async (req: Request, res: Response) => {
@@ -171,6 +204,8 @@ router.patch('/admin/products/:productId/variants/:variantId/inventory', async (
         new_quantity: quantity,
         reason: reason.trim(),
       });
+
+    invalidateProductCache(currentVariant.product_id);
 
     await logAudit({
       adminId: adminUser.id,
