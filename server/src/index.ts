@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { randomUUID } from 'crypto';
-import { ordersRouter, webhooksRouter, productsRouter, discountsRouter, shippingRouter, paymentsRouter } from './routes';
+import { ordersRouter, webhooksRouter, productsRouter, discountsRouter, shippingRouter, paymentsRouter, cartRouter } from './routes';
 import { logError } from './lib/logger';
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
@@ -53,6 +53,7 @@ apiV1.use('/webhooks/stripe', webhooksRouter);
 apiV1.use('/admin', productsRouter);
 apiV1.use('/discounts', discountsRouter);
 apiV1.use('/shipping', shippingRouter);
+apiV1.use('/cart', cartRouter);
 apiV1.use('/payments', paymentsRouter);
 
 app.use('/api/v1', apiV1);
