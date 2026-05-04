@@ -103,31 +103,34 @@ export const GRIND_LABELS: Record<GrindOption, string> = {
 
 export const ORDER_STATUSES: OrderStatus[] = [
   'pending',
+  'confirmed',
   'processing',
-  'roasting',
   'shipped',
   'delivered',
   'cancelled',
+  'payment_failed',
   'refunded',
 ];
 
 export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
   pending: 'Pending',
+  confirmed: 'Confirmed',
   processing: 'Processing',
-  roasting: 'Roasting',
   shipped: 'Shipped',
   delivered: 'Delivered',
   cancelled: 'Cancelled',
+  payment_failed: 'Payment Failed',
   refunded: 'Refunded',
 };
 
 export const ORDER_STATUS_COLORS: Record<OrderStatus, string> = {
   pending: 'yellow',
-  processing: 'blue',
-  roasting: 'orange',
-  shipped: 'purple',
+  confirmed: 'blue',
+  processing: 'purple',
+  shipped: 'indigo',
   delivered: 'green',
   cancelled: 'red',
+  payment_failed: 'red',
   refunded: 'gray',
 };
 
@@ -152,11 +155,11 @@ export const SHIPPING_METHOD_LABELS: Record<
 // Subscription Constants
 // ============================================
 
-export const SUBSCRIPTION_FREQUENCIES: SubscriptionFrequency[] = ['weekly', 'bi_weekly', 'monthly'];
+export const SUBSCRIPTION_FREQUENCIES: SubscriptionFrequency[] = ['weekly', 'biweekly', 'monthly'];
 
 export const SUBSCRIPTION_FREQUENCY_LABELS: Record<SubscriptionFrequency, string> = {
   weekly: 'Weekly',
-  bi_weekly: 'Bi-Weekly',
+  biweekly: 'Bi-Weekly',
   monthly: 'Monthly',
 };
 
@@ -189,6 +192,10 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 ];
 
 export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
+  cash: 'Cash',
+  card: 'Card',
+  mobile: 'Mobile Payment',
+  split: 'Split Payment',
   stripe: 'Credit Card',
   paypal: 'PayPal',
   apple_pay: 'Apple Pay',

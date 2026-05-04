@@ -15,7 +15,7 @@ const CART_TTL_MS = CART_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
 
 function getCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)'));
-  return match ? decodeURIComponent(match[2]) : null;
+  return match && match[2] ? decodeURIComponent(match[2]) : null;
 }
 
 function setCookie(name: string, value: string, maxAgeMs: number): void {
@@ -64,27 +64,8 @@ async function syncToRedis(items: CartItem[], discountCode: string | null, sessi
   }
 }
 
-async function loadFromRedis(sessionId: string): Promise<StoredCart | null> {
-  try {
-    let baseURL = 'http://localhost:3001';
-    if (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_URL) {
-      baseURL = (import.meta as any).env.VITE_API_URL;
-    }
-    const apiBase = `${baseURL}/api/v1`;
-
-    const response = await fetch(`${apiBase}/cart?sessionId=${encodeURIComponent(sessionId)}`);
-    if (response.ok) {
-      const data = await response.json();
-      return {items: data.items || [], cartId: data.sessionId};
-    }
-  } catch {
-  }
-  return null;
-}
-
 export function useCartStorage() {
   const isInitialMount = useRef(true);
-  const redisSynced = useRef(false);
 
   const [cartId, setCartId] = useState<string | null>(() => {
     const stored = loadStoredCart();

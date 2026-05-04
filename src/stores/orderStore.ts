@@ -69,50 +69,47 @@ export const useOrderStore = create<OrderState>()(
 
         setOrder: (order) => {
           persistToSession(order);
-          set({ currentOrder: order, error: null }, { name: 'order-set-order' });
+          set({ currentOrder: order, error: null });
         },
 
         clearOrder: () => {
           persistToSession(null);
-          set({ currentOrder: null, selectedPaymentMethod: null, error: null }, { name: 'order-clear' });
+          set({ currentOrder: null, selectedPaymentMethod: null, error: null });
         },
 
-        setError: (error) => set({ error }, { name: 'order-set-error' }),
+        setError: (error) => set({ error }),
 
-        setLoading: (isLoading) => set({ isLoading }, { name: 'order-set-loading' }),
+        setLoading: (isLoading) => set({ isLoading }),
 
         setPaymentMethod: (method) =>
-          set({ selectedPaymentMethod: method }, { name: 'order-set-payment-method' }),
+          set({ selectedPaymentMethod: method }),
 
         setPaymentMethodId: (methodId) =>
-          set({ selectedPaymentMethodId: methodId }, { name: 'order-set-payment-method-id' }),
+          set({ selectedPaymentMethodId: methodId }),
 
-        setOrders: (orders) => set({ orders }, { name: 'order-set-orders' }),
+        setOrders: (orders) => set({ orders }),
 
         updateOrderStatus: (orderId, status) =>
-          set(
-            (state) => {
-              const updatedOrder = state.currentOrder?.id === orderId
-                ? { ...state.currentOrder, status }
-                : state.currentOrder;
+          set((state) => {
+            const updatedOrder = state.currentOrder?.id === orderId
+              ? { ...state.currentOrder, status }
+              : state.currentOrder;
 
-              if (updatedOrder) {
-                persistToSession(updatedOrder as Order);
-              }
+            if (updatedOrder) {
+              persistToSession(updatedOrder as Order);
+            }
 
-              return {
-                orders: state.orders.map((o) =>
-                  o.id === orderId ? { ...o, status } : o
-                ),
-                currentOrder: updatedOrder,
-              };
-            },
-            { name: 'order-update-status' }
-          ),
+            return {
+              orders: state.orders.map((o) =>
+                o.id === orderId ? { ...o, status } : o
+              ),
+              currentOrder: updatedOrder,
+            };
+          }),
 
         reset: () => {
           persistToSession(null);
-          set(initialState, { name: 'order-reset' });
+          set(initialState);
         },
       }),
       {

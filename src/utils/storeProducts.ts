@@ -18,10 +18,10 @@ function mapAdminProduct(admin: AdminProductRecord, seed?: Product): Product {
     descriptionAr: admin.description,
     image: admin.images[0] || seed?.image || DEFAULT_IMAGE,
     category: seed?.category || 'coffee',
-    origin: seed?.origin,
-    originAr: seed?.originAr,
-    roastLevel: seed?.roastLevel,
-    roastLevelAr: seed?.roastLevelAr,
+    origin: seed?.origin || 'Unknown',
+    originAr: seed?.originAr || 'غير معروف',
+    roastLevel: seed?.roastLevel || 'medium',
+    roastLevelAr: seed?.roastLevelAr || 'متوسط',
   };
 }
 

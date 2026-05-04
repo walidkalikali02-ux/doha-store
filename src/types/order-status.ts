@@ -8,6 +8,7 @@ export const ORDER_STATUS_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   shipped: ['delivered', 'cancelled'],
   delivered: ['cancelled'],
   cancelled: [],
+  refunded: [],
 };
 
 export function isValidTransition(from: OrderStatus, to: OrderStatus): boolean {
@@ -28,13 +29,11 @@ export function getOrderStatusLabel(status: OrderStatus): string {
     shipped: 'Shipped',
     delivered: 'Delivered',
     cancelled: 'Cancelled',
+    refunded: 'Refunded',
   };
   return labels[status] ?? status;
 }
 
 export function isFinalStatus(status: OrderStatus): boolean {
-  return ['delivered', 'cancelled'].includes(status);
+  return ['delivered', 'cancelled', 'refunded'].includes(status);
 }
-
-export { OrderStatus };
-export type { OrderStatus } from './order';

@@ -1,1 +1,1 @@
-export type { Cart, CartItem, Discount, ShippingAddress, MyFatoorahPaymentMethod } from './order';
+export type { CartItem, ShippingAddress, Discount } from './order';

@@ -5,7 +5,41 @@ export type OrderStatus =
   | 'shipped'
   | 'delivered'
   | 'cancelled'
-  | 'payment_failed';
+  | 'payment_failed'
+  | 'refunded';
+
+export type UserRole = 'guest' | 'customer' | 'wholesale' | 'admin' | 'super_admin';
+
+export type ProductType = 'coffee' | 'equipment' | 'accessories' | 'merchandise' | 'gift';
+
+export type ProductStatus = 'active' | 'draft' | 'published' | 'archived';
+
+export type RoastLevel = 'light' | 'medium' | 'medium-dark' | 'dark';
+
+export type GrindOption =
+  | 'whole_bean'
+  | 'espresso'
+  | 'filter'
+  | 'french_press'
+  | 'pour_over'
+  | 'turkish'
+  | 'cold_brew';
+
+export type SizeOption = '250g' | '500g' | '1kg' | '5kg';
+
+export type ProcessingMethod = 'washed' | 'natural' | 'honey';
+
+export type ShippingMethod = 'standard' | 'express' | 'overnight' | 'local_pickup';
+
+export type SubscriptionFrequency = 'weekly' | 'biweekly' | 'monthly';
+
+export type SubscriptionStatus = 'active' | 'paused' | 'cancelled' | 'past_due';
+
+export type PaymentMethod = 'cash' | 'card' | 'mobile' | 'split' | 'stripe' | 'paypal' | 'apple_pay' | 'google_pay' | 'gift_card';
+
+export type LoyaltyTier = 'bronze' | 'silver' | 'gold' | 'platinum';
+
+export type ReviewStatus = 'pending' | 'approved' | 'rejected';
 
 export interface ShippingAddress {
   line1: string;

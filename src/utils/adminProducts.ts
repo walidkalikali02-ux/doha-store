@@ -9,8 +9,8 @@ export interface AdminProductRecord {
   category: string;
   description: string;
   price: number;
-  compareAtPrice?: number;
-  costPerItem?: number;
+  compareAtPrice?: number | undefined;
+  costPerItem?: number | undefined;
   quantity: number;
   lowStockThreshold: number;
   status: AdminProductStatus;

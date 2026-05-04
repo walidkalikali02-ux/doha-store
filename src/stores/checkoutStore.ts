@@ -198,24 +198,21 @@ export const useCheckoutStore = create<CheckoutState>()(
       clearPayment: () => set({payment: null, paymentMethodId: null, currentStep: 'payment'}, {name: 'checkout-clear-payment'}),
       clearGuestData: () => set({guestData: null}, {name: 'checkout-clear-guest-data'}),
       setDiscount: discount =>
-        set(
-          state => ({
-            discount,
-            order: state.order
-              ? {
-                  ...state.order,
-                  discountCode: discount?.code,
-                  discountAmount: discount?.amount ?? 0,
-                  total:
-                    (state.order.subtotal ?? 0) +
-                    (state.order.shippingCost ?? 0) +
-                    (state.order.taxAmount ?? 0) -
-                    (discount?.amount ?? 0),
-                }
-              : state.order,
-          }),
-          {name: 'checkout-set-discount'}
-        ),
+        set({
+          discount,
+          order: discount && state.order
+            ? {
+                ...state.order,
+                discountCode: discount.code,
+                discountAmount: discount.amount,
+                total:
+                  (state.order.subtotal ?? 0) +
+                  (state.order.shippingCost ?? 0) +
+                  (state.order.taxAmount ?? 0) -
+                  discount.amount,
+              }
+            : state.order,
+        }, {name: 'checkout-set-discount'}),
       reset: () => {
         get().clearCheckout();
       },
