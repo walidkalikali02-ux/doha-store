@@ -55,13 +55,13 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@playwright/test": "^1.64.0",
+    "@playwright/test": "^1.64.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.7",
+    "@testing-library/user-event": "^14.6.8",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.25",
-    "@types/google.maps": "^3.66.6",
+    "@types/google.maps": "^3.66.7",
     "@types/node": "^22.14.0",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19.2.14",
@@ -75,7 +75,7 @@
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.71.1",
+    "typescript-eslint": "^8.71.2",
     "vite": "^6.2.0",
     "vitest": "^4.1.11"
   }
